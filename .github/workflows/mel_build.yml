@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  push: 
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Python v3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller requests-html lxml numpy dearpygui beautifulsoup4 pypresence Pillow
+    - name: Compile Melody
+      run: pyinstaller -n melody --windowed --icon=assets/dmi.ico -F src/mel.py
