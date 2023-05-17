@@ -4,12 +4,12 @@
 </p>
 
 <div align="center">
-	<img src="https://img.shields.io/github/license/inohime/Melody" alt="License"/>
-	<img src="https://img.shields.io/badge/python-v3.10+-blue?style=flat" alt="Python Badge">
+	<img src="https://img.shields.io/github/license/inohime/Melody" alt="License" />
+	<img src="https://img.shields.io/badge/python-v3.10+-blue?style=flat" alt="Python Badge" />
 	<a href="https://github.com/qwertyquerty/pypresence">
-		<img src="https://img.shields.io/badge/using-pypresence-00bb88.svg?style=flat&logo=discord&logoWidth=20" alt="PyPresence Badge"/>
-		<img src="https://github.com/inohime/Melody/actions/workflows/mel_build.yml/badge.svg?branch=master" alt="CI Status Workflow Badge">
+		<img src="https://img.shields.io/badge/using-pypresence-00bb88.svg?style=flat&logo=discord&logoWidth=20" alt="PyPresence Badge" />
 	</a>
+	<img src="https://github.com/inohime/Melody/actions/workflows/mel_build.yml/badge.svg?branch=master" alt="CI Status Workflow Badge" />
 </div>
 
 </br>
@@ -55,8 +55,8 @@ pyinstaller -n melody --windowed --icon=assets/dmi.ico -F src/mel.py
 - Currently, the application does not check if discord is closed (should this happen, you will need to close the chromium instances created by the application)
 
 ## Acknowledgements
-Background photo by ![Agata Ciosek](https://unsplash.com/@hisevil) on ![Unsplash](https://unsplash.com)
+Background photo by <a href="https://unsplash.com/@hisevil">Agata Ciosek</a> on <a href="https://unsplash.com">Unsplash</a>
 
 Icons by:
--  ![Paweł Kuna](https://twitter.com/codecalm) on ![Tabler Icons](https://tablericons.com)	
--  ![Precious & Solomon](https://preciousm.co/) on ![Basicons](https://basicons.xyz)
+-  <a href="https://twitter.com/codecalm">Paweł Kuna</a> on <a href="https://tablericons.com">Tabler Icons</a>	
+-  <a href="https://preciousm.co/">Precious & Solomon</a> on <a href="https://basicons.xyz">Basicons</a>
