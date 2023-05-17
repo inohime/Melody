@@ -8,14 +8,14 @@
 	<img src="https://img.shields.io/badge/python-v3.10+-blue?style=flat" alt="Python Badge">
 	<a href="https://github.com/qwertyquerty/pypresence">
 		<img src="https://img.shields.io/badge/using-pypresence-00bb88.svg?style=flat&logo=discord&logoWidth=20" alt="PyPresence Badge"/>
-		<img src="https://github.com/inohime/Melody/actions/workflows/mel_build.yml/badge.svg?branch=main" alt="CI Status Workflow Badge">
+		<img src="https://github.com/inohime/Melody/actions/workflows/mel_build.yml/badge.svg?branch=master" alt="CI Status Workflow Badge">
 	</a>
 </div>
 
 </br>
 
 ## Description
-A YouTube Music Discord Rich-Presence App utilizing ![PyPresence](https://github.com/qwertyquerty/pypresence) and ![BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/)
+A YouTube Music Discord Rich-Presence App utilizing <a href="https://github.com/qwertyquerty/pypresence">PyPresence</a> and <a href="https://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a>
 
 ## Examples
 <img width="341" height="233" src="./examples/app_front.png" alt="Melody App Example">
