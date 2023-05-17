@@ -4,9 +4,11 @@
 </p>
 
 <div align="center">
+	<img src="https://img.shields.io/github/license/inohime/Melody" alt="License"/>
 	<img src="https://img.shields.io/badge/python-v3.10+-blue?style=flat" alt="Python Badge">
 	<a href="https://github.com/qwertyquerty/pypresence">
 		<img src="https://img.shields.io/badge/using-pypresence-00bb88.svg?style=flat&logo=discord&logoWidth=20" alt="PyPresence Badge"/>
+		<img src="https://github.com/inohime/Melody/actions/workflows/mel_build.yml/badge.svg?branch=main" alt="CI Status Workflow Badge">
 	</a>
 </div>
 
