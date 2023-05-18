@@ -235,10 +235,10 @@ class MelodyYUM:
         del self._song_book[song_id]
 
     def _fetch_song_content(self, song_url) -> Soup:
-        self._video_content = self.request.get(song_url)
-        self._video_content.html.render(sleep=1, timeout=10)
+        self.video_content = self.request.get(song_url)
+        self.video_content.html.render(sleep=1, timeout=10)
 
-        return Soup(self._video_content.html.html, "lxml")
+        return Soup(self.video_content.html.html, "lxml")
 
     def _parse_artist_name(self, name: str) -> str:
         if "- Topic" in name:
@@ -368,3 +368,11 @@ class MelodyYUM:
 
     def yum_is_active(self) -> bool:
         return self._yum_state == YUMState.ACTIVE
+    
+    @property
+    def video_content(self):
+        return self._video_content
+    
+    @video_content.setter
+    def video_content(self, value):
+        self._video_content = value
