@@ -1,3 +1,4 @@
 build/
 dist/
 melody.spec
+src/__pycache__
