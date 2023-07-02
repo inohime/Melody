@@ -32,15 +32,15 @@ A YouTube Music Discord Rich-Presence App utilizing <a href="https://github.com/
 ## Building
 > Make sure your python version is 3.10 or greater
 1. Paste this command into your shell
+	```shell
+	pyinstaller -n melody --windowed --icon=assets/dmi.ico -F src/mel.py
+	```
 	- If it doesn't work, you may need to add this line after the --icon and before -F
 		-	`--paths= { PATH_TO_YOUR_PYTHON_LIB_SITE-PACKAGES }`
 		-	Example: `--paths=C:/Python311/Lib/site-packages`
-```shell
-pyinstaller -n melody --windowed --icon=assets/dmi.ico -F src/mel.py
-```
 
-2. unzip assets into `dist/` output folder
-3. You can now open YouTube Music and play a song!
+3. unzip assets into `dist/` output folder
+4. You can now open YouTube Music and play a song!
 
 ## Important Additional Info
 - Rich Presence only updates once every 15 seconds (per Discord API limit)
