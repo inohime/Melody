@@ -43,6 +43,8 @@ A YouTube Music Discord Rich-Presence App utilizing <a href="https://github.com/
 4. You can now open YouTube Music and play a song!
 
 ## Important Additional Info
+- This app is something I personally wanted so I made it. I'm aware of some of its shortcomings, but feel free to open an issue if you have any problems!
+
 - Rich Presence only updates once every 15 seconds (per Discord API limit)
 
 - Prefer to close the application normally instead of using the quit button (both do the same thing,  dearpygui framework limitation)
