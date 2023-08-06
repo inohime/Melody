@@ -300,8 +300,11 @@ class Melody:
         main_kwargs = {
             "width": const.WIDTH,
             "height": const.HEIGHT,
-            "no_title_bar": True,
+            "pos": [0, 0],
+            "no_collapse": True,
             "no_move": True,
+            "no_scrollbar": True,      
+            "no_title_bar": True,
             "no_resize": True,
             "no_bring_to_front_on_focus": True
         }

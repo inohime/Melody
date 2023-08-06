@@ -11,48 +11,47 @@ class MelodyDB:
         self._query_op = None
         self._database = None
         (self._browser, self._renderer) = browser.fetch_browser()
+        self._br_mapping = self._apply_mapping()
 
     def copy_fetch(self):
-        match [self._browser, self._renderer]:
-            case ["CHROME", "Blink"]:
-                shutil.copy(const.WIN_CHROME_HISTORY_PATH,
-                            const.WIN_CHROME_HISTORY_COPY_PATH)
-                self.query_op = self._get_query_op("Blink")
-                self.database = const.WIN_CHROME_HISTORY_COPY_PATH
+        # make/update a copy of the browser database
+        # so we can run queries on fresh data
+        def __update_copy_db(
+            query_op: str,
+            history_path: str,
+            history_copy_path: str
+        ):
+            shutil.copy(history_path, history_copy_path)
+            self.query_op = self._get_query_op(query_op)
+            self.database = history_copy_path
 
-            case ["MSEDGE", "Blink"]:
-                shutil.copy(const.WIN_EDGE_HISTORY_PATH,
-                            const.WIN_EDGE_HISTORY_COPY_PATH)
-                self.query_op = self._get_query_op("Blink")
-                self.database = const.WIN_EDGE_HISTORY_COPY_PATH
-
-            case ["FIREFOX", "Gecko"]:
-                self.query_op = self._get_query_op("Gecko")
-                self.database = const.WIN_FIREFOX_HISTORY_PATH
-
-            case ["LIBREWOLF", "Gecko"]:
-                self.query_op = self._get_query_op("Gecko")
-                self.database = const.WIN_LIBREWOLF_HISTORY_PATH
-
-            case _:
-                # temp
-                print("Browser currently not supported!")
-                return
+        for (browser, renderer), (history_path, history_copy_path) in self._br_mapping.items():
+            if browser == self._browser and renderer == self._renderer:
+                __update_copy_db(renderer, history_path, history_copy_path)
+                break
 
         with closing(sqlite3.connect(self.database)) as self._db:
             self._do_query(self.query_op)
 
     def _get_query_op(self, renderer: str) -> str:
         if renderer == "Blink":
-            return f"SELECT url FROM urls ORDER BY last_visit_time DESC LIMIT 11"
-        
+            return "SELECT url FROM urls ORDER BY last_visit_time DESC LIMIT 11"
+
         # assume it's gecko
-        return f"SELECT url FROM moz_places ORDER BY last_visit_date DESC LIMIT 11"
+        return "SELECT url FROM moz_places ORDER BY last_visit_date DESC LIMIT 11"
 
     def _do_query(self, sql_cmd):
         with closing(self._db.cursor()) as self._cursor:
             self._cursor.execute(sql_cmd)
             self.query_data = self._cursor.fetchall()
+
+    def _apply_mapping(self) -> dict[tuple[str, str], tuple[str, str]]:
+        return {
+            ("CHROM", "Blink"): (const.CHROME_HISTORY_PATH, const.CHROME_HISTORY_COPY_PATH),
+            ("MSEDGE", "Blink"): (const.EDGE_HISTORY_PATH, const.EDGE_HISTORY_COPY_PATH),
+            ("FIREFOX", "Gecko"): (const.FIREFOX_HISTORY_PATH, const.FIREFOX_HISTORY_COPY_PATH),
+            ("LIBREWOLF", "Gecko"): (const.LIBREWOLF_HISTORY_PATH, const.LIBREWOLF_HISTORY_COPY_PATH),
+        }
 
     @property
     def query_data(self):
