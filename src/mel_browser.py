@@ -117,6 +117,7 @@ class MelodyBPMacOS(IMelodyBP):
         self.edge_path = "/Library/Application Support/Microsoft/Edge/Default/"
         self.firefox_path = "/Library/Application Support/Firefox/Profiles"
         self.librewolf_path = "/Library/Application Support/librewolf/Profiles"
+        self.safari_path = "/Library/Safari/"
 
     def user_path(self) -> str:
         return os.getenv("HOME")
@@ -136,6 +137,10 @@ class MelodyBPMacOS(IMelodyBP):
     @property
     def librewolf_dir(self) -> str:
         return super().librewolf_dir
+
+    @property
+    def safari_dir(self) -> str:
+        return self.user_path() + self.safari_path
 
 
 class MelodyBPLinux(IMelodyBP):

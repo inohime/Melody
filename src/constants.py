@@ -1,4 +1,5 @@
 import os
+import platform
 from mel_browser import mbp
 
 
@@ -35,6 +36,12 @@ FIREFOX_HISTORY_COPY_PATH = f"{USER_FIREFOX_DIR}{HCOPY_FILENAME}.sqlite"
 USER_LIBREWOLF_DIR = mbp.librewolf_dir
 LIBREWOLF_HISTORY_PATH = USER_LIBREWOLF_DIR + "places.sqlite"
 LIBREWOLF_HISTORY_COPY_PATH = f"{USER_LIBREWOLF_DIR}{HCOPY_FILENAME}.sqlite"
+
+
+if platform.system() == "Darwin":
+    # --> Safari
+    USER_SAFARI_DIR = mbp.safari_dir
+    SAFARI_HISTORY_PATH = USER_SAFARI_DIR + "History.db"
 
 
 WIDTH = 450
