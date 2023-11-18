@@ -1,9 +1,12 @@
 import os
-from abc import ABC, abstractmethod
 import platform
+from abc import ABC, abstractmethod
 
 
 bind = {
+    # CHROME is Chromium, it 
+    # reports differently compared to google chrome
+    "CHROME": "Blink",
     "CHROM": "Blink",
     "MSEDGE": "Blink",
     "FIREFOX": "Gecko",
@@ -16,6 +19,7 @@ class IMelodyBP(ABC):
     def __init__(self) -> None:
         super().__init__()
 
+        self.chromium_path = ""
         self.chrome_path = ""
         self.edge_path = ""
         self.firefox_path = ""
@@ -27,6 +31,14 @@ class IMelodyBP(ABC):
         returns path to the user's home directory
         '''
         pass
+
+    @property
+    @abstractmethod
+    def chromium_dir(self) -> str:
+        '''
+        returns path of the user's Chromium directory
+        '''
+        return self.user_path() + self.chromium_path
 
     @property
     @abstractmethod
@@ -52,6 +64,10 @@ class IMelodyBP(ABC):
         '''
         partial_dir = self.user_path() + self.firefox_path
 
+        # used to skip should the directory/app (firefox) not exist
+        if not os.path.exists(partial_dir):
+            return ""
+
         # NOTE: default profile is found by profiles.ini -> [Install(...)] Default=...
         #       this just finds the first one with a places.sqlite
 
@@ -69,6 +85,9 @@ class IMelodyBP(ABC):
         '''
         partial_dir = self.user_path() + self.librewolf_path
 
+        if not os.path.exists(partial_dir):
+            return ""
+
         return f'''{[
             os.path.join(partial_dir, dir)
             for dir in os.listdir(partial_dir)
@@ -82,6 +101,7 @@ class MelodyBPWindows(IMelodyBP):
 
         # gecko-based browsers don't have a forward-slash appended until
         # after property invoked due to the OS operations in the base class
+        self.chromium_path = "/AppData/Local/Chromium/User Data/Default/"
         self.chrome_path = "/AppData/Local/Google/Chrome/User Data/Default/"
         self.edge_path = "/AppData/Local/Microsoft/Edge/User Data/Default/"
         self.firefox_path = "/AppData/Roaming/Mozilla/Firefox/Profiles"
@@ -89,6 +109,10 @@ class MelodyBPWindows(IMelodyBP):
 
     def user_path(self) -> str:
         return os.getenv("USERPROFILE")
+
+    @property
+    def chromium_dir(self) -> str:
+        return super().chromium_dir
 
     @property
     def chrome_dir(self) -> str:
@@ -121,6 +145,11 @@ class MelodyBPMacOS(IMelodyBP):
 
     def user_path(self) -> str:
         return os.getenv("HOME")
+    
+    @property
+    def chromium_dir(self) -> str:
+        # don't feel like dealing with this (platform) rn
+        return super().chromium_dir
 
     @property
     def chrome_dir(self) -> str:
@@ -147,12 +176,18 @@ class MelodyBPLinux(IMelodyBP):
     def __init__(self) -> None:
         super().__init__()
 
-        self.chrome_path = "/snap/chromium/common/chromium/Default/"
+        self.chromium_path = "/snap/chromium/common/chromium/Default/"
+        self.chrome_path = self.chromium_path
         self.firefox_path = ""
         self.librewolf_path = ""
 
     def user_path(self) -> str:
         return os.getenv("HOME")
+    
+    @property
+    def chromium_dir(self) -> str:
+        # uses chromium since google chrome isn't supported on aarch64
+        return super().chromium_dir
 
     @property
     def chrome_dir(self) -> str:

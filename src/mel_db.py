@@ -2,6 +2,7 @@ from contextlib import closing
 from shutil import SameFileError
 import constants as const
 import mel_browser as browser
+import platform
 import shutil
 import sqlite3
 
@@ -63,13 +64,18 @@ class MelodyDB:
             self.query_data = self._cursor.fetchall()
 
     def _apply_mapping(self) -> dict[tuple[str, str], tuple[str, str]]:
-        return {
+        __mapping = {
             ("CHROM", "Blink"): (const.CHROME_HISTORY_PATH, const.CHROME_HISTORY_COPY_PATH),
+            ("CHROME", "Blink"): (const.CHROMIUM_HISTORY_PATH, const.CHROMIUM_HISTORY_COPY_PATH),
             ("MSEDGE", "Blink"): (const.EDGE_HISTORY_PATH, const.EDGE_HISTORY_COPY_PATH),
             ("FIREFOX", "Gecko"): (const.FIREFOX_HISTORY_PATH, const.FIREFOX_HISTORY_COPY_PATH),
             ("LIBREWOLF", "Gecko"): (const.LIBREWOLF_HISTORY_PATH, const.LIBREWOLF_HISTORY_COPY_PATH),
-            ("SAFARI", "WebKit"): (const.SAFARI_HISTORY_PATH, const.SAFARI_HISTORY_PATH),
         }
+
+        if platform.system() == "Darwin":
+            __mapping[("SAFARI", "WebKit")] = (const.SAFARI_HISTORY_PATH, const.SAFARI_HISTORY_PATH)
+
+        return __mapping
 
     @property
     def query_data(self):
