@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 
 
 bind = {
+    "ARC": "Blink",
     # CHROME is Chromium, it 
     # reports differently compared to google chrome
     "CHROME": "Blink",
@@ -19,6 +20,7 @@ class IMelodyBP(ABC):
     def __init__(self) -> None:
         super().__init__()
 
+        self.arc_path = ""
         self.chromium_path = ""
         self.chrome_path = ""
         self.edge_path = ""
@@ -31,6 +33,14 @@ class IMelodyBP(ABC):
         returns path to the user's home directory
         '''
         pass
+
+    @property
+    @abstractmethod
+    def arc_dir(self) -> str:
+        '''
+        returns path of the user's Arc directory
+        '''
+        return self.user_path() + self.arc_path
 
     @property
     @abstractmethod
@@ -111,6 +121,14 @@ class MelodyBPWindows(IMelodyBP):
         return os.getenv("USERPROFILE")
 
     @property
+    def arc_dir(self) -> str:
+        raise RuntimeError(
+            f'''
+            Arc is not yet implemented for Windows
+            '''
+        )
+
+    @property
     def chromium_dir(self) -> str:
         return super().chromium_dir
 
@@ -137,6 +155,7 @@ class MelodyBPMacOS(IMelodyBP):
     def __init__(self) -> None:
         super().__init__()
 
+        self.arc_path = "/Library/Application Support/Arc/User Data/Default/"
         self.chrome_path = "/Library/Application Support/Google/Chrome/Default/"
         self.edge_path = "/Library/Application Support/Microsoft/Edge/Default/"
         self.firefox_path = "/Library/Application Support/Firefox/Profiles"
@@ -145,6 +164,10 @@ class MelodyBPMacOS(IMelodyBP):
 
     def user_path(self) -> str:
         return os.getenv("HOME")
+    
+    @property
+    def arc_dir(self) -> str:
+        return super().arc_dir
     
     @property
     def chromium_dir(self) -> str:
@@ -183,6 +206,14 @@ class MelodyBPLinux(IMelodyBP):
 
     def user_path(self) -> str:
         return os.getenv("HOME")
+    
+    @property
+    def arc_dir(self) -> str:
+        raise RuntimeError(
+            f'''
+            Arc is currently not supported on Linux
+            '''
+        )
     
     @property
     def chromium_dir(self) -> str:

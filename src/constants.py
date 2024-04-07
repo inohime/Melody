@@ -13,6 +13,10 @@ ASSET_PATH = APP_PATH + "/assets/"
 
 HCOPY_FILENAME = "melody_history_copy"
 
+# --> Arc
+USER_ARC_DIR = mbp.arc_dir
+ARC_HISTORY_PATH = USER_ARC_DIR + "History"
+ARC_HISTORY_COPY_PATH = USER_ARC_DIR + HCOPY_FILENAME
 
 # --> Chrome
 USER_CHROME_DIR = mbp.chrome_dir

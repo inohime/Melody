@@ -65,6 +65,7 @@ class MelodyDB:
 
     def _apply_mapping(self) -> dict[tuple[str, str], tuple[str, str]]:
         __mapping = {
+            ("ARC", "Blink"): (const.ARC_HISTORY_PATH, const.ARC_HISTORY_COPY_PATH),
             ("CHROM", "Blink"): (const.CHROME_HISTORY_PATH, const.CHROME_HISTORY_COPY_PATH),
             ("CHROME", "Blink"): (const.CHROMIUM_HISTORY_PATH, const.CHROMIUM_HISTORY_COPY_PATH),
             ("MSEDGE", "Blink"): (const.EDGE_HISTORY_PATH, const.EDGE_HISTORY_COPY_PATH),
